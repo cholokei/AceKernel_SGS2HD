@@ -687,7 +687,17 @@ struct sysinfo {
 #define BUILD_BUG_ON_ZERO(e) (0)
 #define BUILD_BUG_ON_NULL(e) ((void*)0)
 #define BUILD_BUG_ON(condition)
+<<<<<<< HEAD
 #else /* __CHECKER__ */
+=======
+#define BUILD_BUG() (0)
+#else /* __CHECKER__ */
+/* Force a compilation error if condition is true */
+#define BUILD_BUG_ON(condition) ((void)BUILD_BUG_ON_ZERO(condition))
+
+/* Force a compilation error if condition is constant and true */
+#define MAYBE_BUILD_BUG_ON(cond) ((void)sizeof(char[1 - 2 * !!(cond)]))
+>>>>>>> ffb9b34... kernel.h: Add BUILD_BUG() macro.
 
 /* Force a compilation error if a constant expression is not a power of 2 */
 #define BUILD_BUG_ON_NOT_POWER_OF_2(n)			\
@@ -701,6 +711,7 @@ struct sysinfo {
 #define BUILD_BUG_ON_NULL(e) ((void *)sizeof(struct { int:-!!(e); }))
 
 /**
+<<<<<<< HEAD
  * BUILD_BUG_ON - break compile if a condition is true.
  * @condition: the condition which the compiler should know is false.
  *
@@ -726,6 +737,22 @@ extern int __build_bug_on_failed;
 	} while(0)
 #endif
 #endif	/* __CHECKER__ */
+=======
+ * BUILD_BUG - break compile if used.
+ *
+ * If you have some code that you expect the compiler to eliminate at
+ * build time, you should use BUILD_BUG_ON_USED to detect if it is
+ * unexpectedly used.
+ */
+#define BUILD_BUG()						\
+	do {							\
+		extern void __build_bug_failed(void)		\
+			__linktime_error("BUILD_BUG failed");	\
+		__build_bug_failed();				\
+	} while (0)
+
+#endif  /* __CHECKER__ */
+>>>>>>> ffb9b34... kernel.h: Add BUILD_BUG() macro.
 
 /* Trap pasters of __FUNCTION__ at compile-time */
 #define __FUNCTION__ (__func__)
