@@ -1635,11 +1635,11 @@ void diag_usb_legacy_notifier(void *priv, unsigned event,
 {
 	switch (event) {
 	case USB_DIAG_CONNECT:
-#ifdef CONFIG_KOR_MODEL_SHV_E160L
+#if defined(CONFIG_KOR_MODEL_SHV_E160L) || defined(CONFIG_KOR_MODEL_SHV_E120L)
 		if (diagfwd_delay_done)
 			diagfwd_connect();
-		else 
-			schedule_delayed_work(&diagfwd_delay_work, msecs_to_jiffies(15000));		
+		else
+			schedule_delayed_work(&diagfwd_delay_work, msecs_to_jiffies(15000));
 #else
 		diagfwd_connect();
 #endif
