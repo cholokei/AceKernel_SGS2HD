@@ -977,8 +977,6 @@ static void fsa9480_detect_dev(struct fsa9480_usbsw *usbsw)
 		} else if (val2 & DEV_PPD) {
 			dev_info(&client->dev, "[jgk] DEV_PPD --> usbsw reset!!\n");
 			fsa9480_reset(usbsw, 1);
-#else
-		}
 #endif
 		}
 	/* Detached */
