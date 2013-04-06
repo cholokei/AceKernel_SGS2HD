@@ -57,7 +57,7 @@ struct mask_info {
 	int index;
 };
 
-#ifdef CONFIG_KOR_MODEL_SHV_E160L
+#if defined(CONFIG_KOR_MODEL_SHV_E160L) || defined(CONFIG_KOR_MODEL_SHV_E120L)
 static int diagfwd_delay_done = 0;
 static void diagfwd_delay_work_fn(struct work_struct *work);
 DECLARE_DELAYED_WORK(diagfwd_delay_work, diagfwd_delay_work_fn);
