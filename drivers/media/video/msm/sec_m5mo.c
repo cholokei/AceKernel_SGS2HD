@@ -1371,8 +1371,11 @@ static int m5mo_set_af(int val)
 			msleep(10);
 			err = m5mo_readb(M5MO_CATEGORY_LENS, M5MO_LENS_AF_STATUS, &status);
 			CHECK_ERR(err);
-
-			if (!(status & 0x01)) 
+#if defined (CONFIG_TARGET_SERIES_CELOX)
+			if (!(status & 0x01) && i < 599) // it will be Valid status after 10ms for celox 
+#else
+			if (!(status & 0x01))  
+#endif
 				break;
 		}
 

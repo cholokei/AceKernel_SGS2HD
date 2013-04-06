@@ -764,6 +764,29 @@ int get_vbus_valid(void)
 }
 EXPORT_SYMBOL(get_vbus_valid);
 #endif
+
+static ssize_t fsa9480_reset(struct fsa9480_usbsw *usbsw, int reset)
+{
+	struct i2c_client *client = usbsw->client;
+	int ret;
+
+	if (reset > 0) {
+//		dev_info(&client->dev, "fsa9480 reset after delay 1000 msec.\n");
+//		mdelay(1000);
+		ret = i2c_smbus_write_byte_data(client,
+						FSA9480_REG_MANUAL_OVERRIDES1, 0x01);
+		if (ret < 0) {
+			dev_err(&client->dev, "cannot soft reset, err %d\n", ret);
+		} else
+			dev_info(&client->dev, "fsa9480_reset_control done!\n");
+	} else {
+		dev_info(&client->dev, "fsa9480_reset_control, but not reset_value!\n");
+	}
+
+	fsa9480_reg_init(usbsw);
+	return 0;
+}
+
 static void fsa9480_detect_dev(struct fsa9480_usbsw *usbsw)
 {
 	int device_type, ret, adc;
@@ -948,6 +971,9 @@ static void fsa9480_detect_dev(struct fsa9480_usbsw *usbsw)
 					"%s: err %d\n", __func__, ret);
 
 			usbsw->cardock_attached=1;
+		} else if (val2 & DEV_PPD) {
+			dev_info(&client->dev, "[jgk] DEV_PPD --> usbsw reset!!\n");
+			fsa9480_reset(usbsw, 1);
 		}
 	/* Detached */
 	} else {
