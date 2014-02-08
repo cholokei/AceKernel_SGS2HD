@@ -765,6 +765,7 @@ int get_vbus_valid(void)
 EXPORT_SYMBOL(get_vbus_valid);
 #endif
 
+#if defined (CONFIG_TARGET_SERIES_CELOX)
 static ssize_t fsa9480_reset(struct fsa9480_usbsw *usbsw, int reset)
 {
 	struct i2c_client *client = usbsw->client;
@@ -786,6 +787,7 @@ static ssize_t fsa9480_reset(struct fsa9480_usbsw *usbsw, int reset)
 	fsa9480_reg_init(usbsw);
 	return 0;
 }
+#endif
 
 static void fsa9480_detect_dev(struct fsa9480_usbsw *usbsw)
 {
@@ -971,9 +973,11 @@ static void fsa9480_detect_dev(struct fsa9480_usbsw *usbsw)
 					"%s: err %d\n", __func__, ret);
 
 			usbsw->cardock_attached=1;
+#if defined (CONFIG_TARGET_SERIES_CELOX)
 		} else if (val2 & DEV_PPD) {
 			dev_info(&client->dev, "[jgk] DEV_PPD --> usbsw reset!!\n");
 			fsa9480_reset(usbsw, 1);
+#endif
 		}
 	/* Detached */
 	} else {

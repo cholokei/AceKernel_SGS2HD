@@ -573,12 +573,6 @@ static ssize_t write(struct file *file, const char *buf, size_t count,
         return 0;
     }
 
-    /* Check buffer size */
-	if ((count <= SPI_HEADER_SIZE) || (count > SPI_BUFFER_SIZE)) {
-        DbgOut((KERN_ERR "tspdrv: invalid write buffer size.\n"));
-        return 0;
-    }
-	
     /* Copy immediately the input buffer */
 	if (0 != copy_from_user(g_cWriteBuffer, buf, count)) {
         /* Failed to copy all the data, exit */
@@ -586,6 +580,11 @@ static ssize_t write(struct file *file, const char *buf, size_t count,
         return 0;
     }
 
+    /* Check buffer size */
+	if ((count <= SPI_HEADER_SIZE) || (count > SPI_BUFFER_SIZE)) {
+        DbgOut((KERN_ERR "tspdrv: invalid write buffer size.\n"));
+        return 0;
+    }
 
 	while (i < count) {
         int nIndexFreeBuffer;   /* initialized below */
@@ -599,7 +598,6 @@ static ssize_t write(struct file *file, const char *buf, size_t count,
             ** (Should never happen).
             */
             DbgOut((KERN_EMERG "tspdrv: invalid buffer index.\n"));
-			return 0;
         }
 
         /* Check bit depth */
@@ -620,7 +618,6 @@ static ssize_t write(struct file *file, const char *buf, size_t count,
             ** (Should never happen).
             */
             DbgOut((KERN_EMERG "tspdrv: invalid data size.\n"));
-			return 0;
         }
         
         /* Check actuator index */
