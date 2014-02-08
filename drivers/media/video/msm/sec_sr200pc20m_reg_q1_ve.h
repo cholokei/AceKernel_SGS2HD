@@ -2244,7 +2244,7 @@ static const u16 sr200pc20m_vt_wifi_common[] =
 	/* Initial Start */
 	/* PAGE 0 START */
 	0x0300,
-	0x1000, /* Full resolution */
+	0x1011, /* Vsync Active High B:[3] */
 	0x1194, /* Enable Fixed Frame */
 	0x1204, /* Pclk Falling Edge B:[2] */
 
@@ -2253,7 +2253,7 @@ static const u16 sr200pc20m_vt_wifi_common[] =
 	0x0daa, /* ESD Check Register */
 
 	0x2000,
-	0x210a, /* modify 20110929 	0x04 -> 0x02 */
+	0x2102, /* modify 20110929 	0x04 -> 0x02 */
 	0x2200,
 	0x230a, /* modify 20110929 	0x14 -> 0x0a */
 
@@ -2996,23 +2996,23 @@ static const u16 sr200pc20m_vt_wifi_common[] =
 	0x1007,
 	0x1100,
 	0x1258,
-	0x2006, /* 1600 */
-	0x2140,
-	0x2204, /* 1200 */
-	0x23b0,
-	0x2401, /* X start position */
-	0x25e8,
-	0x2601, /* Y start position */
-	0x276a,
-	0x2804, /* X End position */
-	0x2968,
-	0x2a03, /* Y End position */
-	0x2b4a,
-	0x2c08,
+	0x2005,
+	0x2100,
+	0x2201,
+	0x23e0,
+	0x2400, /* X start position */
+	0x2508,
+	0x2600, /* Y start position */
+	0x2702,
+	0x2805, /* X End position */
+	0x2908,
+	0x2a01, /* Y End position */
+	0x2be2,
+	0x2c0a,
 	0x2d00,
-	0x2e08,
+	0x2e0a,
 	0x2f00,
-	0x307c,
+	0x3046,
 	0x1501,
 	/* PAGE 18 END */
 
@@ -3235,8 +3235,8 @@ static const u16 sr200pc20m_vt_wifi_common[] =
 	/* PLL Setting */
 	0x7005,
 	0x7130, /* MiPi Pllx2 */
-	0x7281,
-	0x7085, /* PLL Enable */
+	0x7285,
+	0x70a5, /* PLL Enable */
 	0x0348,
 	0x0348,
 	0x0348,
@@ -3253,8 +3253,8 @@ static const u16 sr200pc20m_vt_wifi_common[] =
 	0x1900,
 	0x1a32,
 	0x1b17,
-	0x1c0b,
-	0x1d0e,
+	0x1c0c,
+	0x1d0f,
 	0x1e06,
 	0x1f05,
 	0x2000,
@@ -3278,12 +3278,12 @@ static const u16 sr200pc20m_vt_wifi_common[] =
 
 	0x320c,
 	0x330a,
-	0x3403, /* CLK LP -> HS Prepare time 24MHz:	0x02, 48MHz:	0x03 */
+	0x3402, /* CLK LP -> HS Prepare time 24MHz:	0x02, 48MHz:	0x03 */
 	0x3503,
 	0x3601,
 	0x3707,
 	0x3802,
-	0x3903, /* drivability 24MHZ:	0x02, 48MHz: 0x03 */
+	0x3902, /* drivability 24MHZ:	0x02, 48MHz: 0x03 */
 	/* 0x17c4, *//* MHSHIM */
 	/* 0x17c0, *//* MHSHIM */
 	/* 0x1700, *//* MHSHIM */
