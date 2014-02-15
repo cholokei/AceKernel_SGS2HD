@@ -78,6 +78,12 @@ config GENERIC_ACL
 	bool
 	select FS_POSIX_ACL
 
+config EXFAT
+	bool "Samsung EXFAT support"
+	default m
+	help
+	  Say Y to enable Samsung EXFAT support.
+
 menu "Caches"
 
 source "fs/fscache/Kconfig"
